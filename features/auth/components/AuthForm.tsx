@@ -55,17 +55,17 @@ export default function AuthForm({ type }: AuthFormProps) {
       
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-            이메일
+          <label htmlFor="username" className="block text-sm font-medium text-gray-700">
+            아이디
           </label>
           <input
-            id="email"
-            type="email"
+            id="username"
+            type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-            placeholder="your@email.com"
+            placeholder="아이디를 입력하세요"
           />
         </div>
 
@@ -79,9 +79,8 @@ export default function AuthForm({ type }: AuthFormProps) {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            minLength={6}
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-            placeholder="최소 6자 이상"
+            placeholder="비밀번호를 입력하세요"
           />
         </div>
 
