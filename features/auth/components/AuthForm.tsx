@@ -31,7 +31,10 @@ export default function AuthForm({ type }: AuthFormProps) {
           password,
         });
         if (error) throw error;
-        setMessage('회원가입이 완료되었습니다! 이메일을 확인해 주세요.');
+        // 회원가입 성공 시 바로 로그인 시도
+        const { error: loginError } = await supabase.auth.signInWithPassword({ email, password });
+        if (loginError) throw loginError;
+        setMessage('회원가입이 완료되었습니다!');
       }
     } catch (error: any) {
       setError(error.message);
