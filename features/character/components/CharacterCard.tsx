@@ -1,4 +1,4 @@
-import { Character } from '../hooks/useCharacter';
+import { Character } from '../../habits/hooks/useCharacter';
 
 interface CharacterCardProps {
   character: Character | null;
