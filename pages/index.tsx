@@ -39,7 +39,7 @@ export default function WelcomePage() {
   return (
     <div className={`min-h-screen bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100 transition-all duration-1000 ${show ? 'opacity-100' : 'opacity-0'}`}>
       {/* 네비게이션 */}
-      <nav className="absolute top-0 left-0 right-0 z-50 p-6">
+      <nav className="fixed top-0 left-0 right-0 z-50 p-6 bg-white/10 backdrop-blur-lg border-b border-white/20">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div className="flex items-center space-x-2">
             <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
@@ -52,8 +52,11 @@ export default function WelcomePage() {
             </span>
           </div>
           <div className="flex space-x-4">
-            <a href="/auth/login" className="px-6 py-2 rounded-xl bg-white/20 backdrop-blur-lg text-white font-medium hover:bg-white/30 transition-all duration-200">
+            <a href="/auth/login" className="px-6 py-2 rounded-xl bg-white/20 backdrop-blur-lg text-gray-800 font-medium hover:bg-white/30 transition-all duration-200 border border-white/30">
               로그인
+            </a>
+            <a href="/auth/admin-login" className="px-6 py-2 rounded-xl bg-red-500/20 backdrop-blur-lg text-red-800 font-medium hover:bg-red-500/30 transition-all duration-200 border border-red-300/30">
+              관리자
             </a>
             <a href="/auth/signup" className="px-6 py-2 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-medium hover:scale-105 transition-all duration-200 shadow-lg">
               시작하기
@@ -63,7 +66,7 @@ export default function WelcomePage() {
       </nav>
 
       {/* 히어로 섹션 */}
-      <div className="relative min-h-screen flex items-center justify-center px-4">
+      <div className="relative min-h-screen flex items-center justify-center px-4 pt-24">
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
           <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
@@ -71,14 +74,14 @@ export default function WelcomePage() {
         </div>
 
         <div className="relative z-10 text-center max-w-4xl mx-auto">
-          <h1 className="text-6xl md:text-7xl font-extrabold text-gray-900 mb-6 tracking-tight animate-fade-in">
+          <h1 className="text-5xl md:text-7xl font-extrabold text-gray-900 mb-6 tracking-tight animate-fade-in leading-tight">
             습관이
             <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent"> 흐르는</span>
             <br />
             삶을 만들어보세요
           </h1>
           
-          <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-2xl mx-auto animate-fade-in delay-200">
+          <p className="text-lg md:text-2xl text-gray-600 mb-8 max-w-2xl mx-auto animate-fade-in delay-200 leading-relaxed">
             작은 습관이 큰 변화를 만듭니다. 
             <br />
             HabitFlow와 함께 당신만의 완벽한 루틴을 구축해보세요.
@@ -119,7 +122,7 @@ export default function WelcomePage() {
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-4">간단한 습관 추적</h3>
               <p className="text-gray-600">복잡한 설정 없이 클릭 한 번으로 습관을 체크하고 진행 상황을 추적하세요.</p>
-                </div>
+            </div>
 
             <div className="text-center p-8 bg-white/60 backdrop-blur-lg rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105">
               <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
@@ -129,20 +132,20 @@ export default function WelcomePage() {
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-4">상세한 통계</h3>
               <p className="text-gray-600">습관 완료율, 연속 달성일, 경험치 등 다양한 통계로 동기부여를 받으세요.</p>
-              </div>
+            </div>
               
             <div className="text-center p-8 bg-white/60 backdrop-blur-lg rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105">
               <div className="w-16 h-16 bg-gradient-to-br from-pink-500 to-red-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
                 <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-6 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                </div>
+              </div>
               <h3 className="text-xl font-bold text-gray-900 mb-4">캐릭터 성장</h3>
               <p className="text-gray-600">습관을 완료할 때마다 경험치를 얻고 레벨업하며 성장하는 재미를 느껴보세요.</p>
             </div>
           </div>
         </div>
-          </div>
+      </div>
 
       {/* CTA 섹션 */}
       <div className="relative py-20 px-4 bg-gradient-to-r from-indigo-600 to-purple-600">
@@ -187,7 +190,7 @@ export default function WelcomePage() {
                 <li><a href="#" className="hover:text-white transition-colors">가격</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">업데이트</a></li>
               </ul>
-        </div>
+            </div>
 
             <div>
               <h3 className="font-semibold mb-4">지원</h3>
@@ -196,7 +199,7 @@ export default function WelcomePage() {
                 <li><a href="#" className="hover:text-white transition-colors">문의하기</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">FAQ</a></li>
               </ul>
-          </div>
+            </div>
           
             <div>
               <h3 className="font-semibold mb-4">회사</h3>
