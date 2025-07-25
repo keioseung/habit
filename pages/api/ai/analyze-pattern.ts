@@ -98,7 +98,7 @@ function calculateHabitStats(habitLogs: any[]) {
 }
 
 function analyzeTimePatterns(habitLogs: any[]) {
-  const timeSlots = {
+  const timeSlots: { [key: string]: number } = {
     '06:00-09:00': 0,
     '09:00-12:00': 0,
     '12:00-15:00': 0,
@@ -120,11 +120,11 @@ function analyzeTimePatterns(habitLogs: any[]) {
     else timeSlots['00:00-06:00']++;
   });
 
-  const total = Object.values(timeSlots).reduce((a, b) => a + b, 0);
-  const timePatterns = Object.entries(timeSlots).map(([time, count]) => ({
+  const total = Object.keys(timeSlots).reduce((sum, key) => sum + timeSlots[key], 0);
+  const timePatterns = Object.keys(timeSlots).map(time => ({
     time,
-    count,
-    percentage: total > 0 ? Math.round((count / total) * 100) : 0
+    count: timeSlots[time],
+    percentage: total > 0 ? Math.round((timeSlots[time] / total) * 100) : 0
   }));
 
   return timePatterns.sort((a, b) => b.count - a.count);
@@ -145,7 +145,8 @@ function analyzeDayPatterns(habitLogs: any[]) {
 function analyzeStreakPatterns(habitLogs: any[]) {
   if (habitLogs.length === 0) return { currentStreak: 0, longestStreak: 0, averageStreak: 0 };
 
-  const dates = [...new Set(habitLogs.map(log => log.checked_at.split('T')[0]))].sort();
+  const uniqueDates = new Set(habitLogs.map(log => log.checked_at.split('T')[0]));
+  const dates = Array.from(uniqueDates).sort();
   let currentStreak = 0;
   let longestStreak = 0;
   let tempStreak = 0;
