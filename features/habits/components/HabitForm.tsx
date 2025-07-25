@@ -1,56 +1,32 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Habit } from '../hooks/useTodayHabits';
 
 interface HabitFormProps {
   habit?: Habit | null;
-  onSubmit: (name: string, repeatDays: string[]) => Promise<{ success: boolean; error?: any }>;
+  onSubmit: (title: string, description: string, color: string) => Promise<{ success: boolean; error?: any }>;
   onCancel: () => void;
   loading?: boolean;
 }
 
-const DAYS_OF_WEEK = [
-  { key: 'Mon', label: '월' },
-  { key: 'Tue', label: '화' },
-  { key: 'Wed', label: '수' },
-  { key: 'Thu', label: '목' },
-  { key: 'Fri', label: '금' },
-  { key: 'Sat', label: '토' },
-  { key: 'Sun', label: '일' },
-];
-
 export default function HabitForm({ habit, onSubmit, onCancel, loading = false }: HabitFormProps) {
-  const [name, setName] = useState(habit?.name || '');
-  const [repeatDays, setRepeatDays] = useState<string[]>(
-    habit?.repeat_days ? habit.repeat_days.split(',') : []
-  );
+  const [title, setTitle] = useState(habit?.title || '');
+  const [description, setDescription] = useState(habit?.description || '');
+  const [color, setColor] = useState(habit?.color || 'indigo');
   const [error, setError] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
 
-    if (!name.trim()) {
+    if (!title.trim()) {
       setError('습관 이름을 입력해주세요.');
       return;
     }
 
-    if (repeatDays.length === 0) {
-      setError('최소 하나의 요일을 선택해주세요.');
-      return;
-    }
-
-    const result = await onSubmit(name.trim(), repeatDays);
+    const result = await onSubmit(title.trim(), description.trim(), color);
     if (!result.success) {
       setError('습관 저장에 실패했습니다.');
     }
-  };
-
-  const toggleDay = (day: string) => {
-    setRepeatDays(prev => 
-      prev.includes(day) 
-        ? prev.filter(d => d !== day)
-        : [...prev, day]
-    );
   };
 
   return (
@@ -62,50 +38,58 @@ export default function HabitForm({ habit, onSubmit, onCancel, loading = false }
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* 습관 이름 */}
         <div>
-          <label htmlFor="habitName" className="block text-sm font-medium text-gray-700 mb-2">
+          <label htmlFor="habitTitle" className="block text-sm font-medium text-gray-700 mb-2">
             습관 이름
           </label>
           <input
-            id="habitName"
+            id="habitTitle"
             type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
             placeholder="예: 매일 운동하기"
             className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
             required
           />
         </div>
-
-        {/* 반복 요일 */}
+        {/* 습관 설명 */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            반복 요일
+          <label htmlFor="habitDescription" className="block text-sm font-medium text-gray-700 mb-2">
+            설명 (선택)
           </label>
-          <div className="grid grid-cols-7 gap-2">
-            {DAYS_OF_WEEK.map(({ key, label }) => (
-              <button
-                key={key}
-                type="button"
-                onClick={() => toggleDay(key)}
-                className={`py-2 px-1 text-sm rounded-md border transition-colors ${
-                  repeatDays.includes(key)
-                    ? 'bg-indigo-500 text-white border-indigo-500'
-                    : 'bg-white text-gray-700 border-gray-300 hover:border-indigo-300'
-                }`}
-              >
-                {label}
-              </button>
-            ))}
-          </div>
+          <input
+            id="habitDescription"
+            type="text"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            placeholder="예: 하루 30분 운동하기"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+          />
         </div>
-
+        {/* 색상 선택 */}
+        <div>
+          <label htmlFor="habitColor" className="block text-sm font-medium text-gray-700 mb-2">
+            색상
+          </label>
+          <select
+            id="habitColor"
+            value={color}
+            onChange={(e) => setColor(e.target.value)}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+          >
+            <option value="indigo">인디고</option>
+            <option value="blue">블루</option>
+            <option value="green">그린</option>
+            <option value="yellow">옐로우</option>
+            <option value="pink">핑크</option>
+            <option value="purple">퍼플</option>
+          </select>
+        </div>
         {/* 에러 메시지 */}
         {error && (
           <div className="text-red-600 text-sm bg-red-50 p-3 rounded-md">
             {error}
           </div>
         )}
-
         {/* 버튼 */}
         <div className="flex justify-end space-x-3">
           <button
