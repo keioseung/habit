@@ -2,11 +2,14 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useAuth } from '../features/auth/hooks/useAuth';
 import { useHabits } from '../features/habits/hooks/useHabits';
-import { useTodayHabits } from '../features/habits/hooks/useTodayHabits';
 import { useCharacter } from '../features/habits/hooks/useCharacter';
+import { useTodayHabits } from '../features/habits/hooks/useTodayHabits';
+import HabitList from '../features/habits/components/HabitList';
+import CharacterCard from '../features/character/components/CharacterCard';
+import TodayHabitsList from '../features/habits/components/TodayHabitsList';
 import { useHabitAI } from '../features/ai/hooks/useHabitAI';
 import HabitForm from '../features/habits/components/HabitForm';
-import PremiumModal from '../features/premium/components/PremiumModal';
+import PremiumModal from '../features/payment/components/PremiumModal';
 
 export default function Dashboard() {
   const { user, loading } = useAuth();
