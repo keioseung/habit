@@ -22,16 +22,20 @@ export default function AuthForm({ type }: AuthFormProps) {
     try {
       if (type === 'login') {
         console.log('로그인 시도:', username);
-        await signIn(username, password);
+        const user = await signIn(username, password);
         setMessage('로그인 성공!');
-        // 로그인 성공 시 홈으로 이동
-        window.location.href = '/';
+        // 로그인 성공 시 관리자 여부에 따라 다른 페이지로 이동
+        if (user?.is_admin) {
+          window.location.href = '/admin';
+        } else {
+          window.location.href = '/dashboard';
+        }
       } else {
         console.log('회원가입 시도:', username);
         await signUp(username, password);
         setMessage('회원가입이 완료되었습니다!');
-        // 회원가입 성공 시 홈으로 이동
-        window.location.href = '/';
+        // 회원가입 성공 시 일반 대시보드로 이동
+        window.location.href = '/dashboard';
       }
     } catch (error: any) {
       console.error('인증 에러:', error);

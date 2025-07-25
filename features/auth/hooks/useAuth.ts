@@ -6,6 +6,7 @@ export interface User {
   username: string;
   email?: string;
   created_at: string;
+  is_admin?: boolean;
 }
 
 export function useAuth() {
@@ -67,7 +68,8 @@ export function useAuth() {
         id: userData.id,
         username: userData.username,
         email: userData.email,
-        created_at: userData.created_at
+        created_at: userData.created_at,
+        is_admin: userData.is_admin || false
       };
 
       setUser(user);

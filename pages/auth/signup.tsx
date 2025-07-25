@@ -85,7 +85,7 @@ export default function Signup() {
         <div className="text-center mt-6 text-gray-500 text-sm animate-fade-in delay-200">
           이미 계정이 있으신가요?{' '}
           <a href="/auth/login" className="text-indigo-500 hover:underline font-medium transition-colors">로그인</a>
-        </div>
+      </div>
       </form>
       <style jsx global>{`
         @keyframes fade-in {
