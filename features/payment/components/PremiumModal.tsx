@@ -83,9 +83,9 @@ export default function PremiumModal({ isOpen, onClose }: PremiumModalProps) {
                   <div className="text-sm text-gray-500">
                     / {plans[plan].period}
                   </div>
-                  {plans[plan].discount && (
+                  {'discount' in plans[plan] && (
                     <div className="text-xs text-green-600 font-medium mt-1">
-                      {plans[plan].discount} 할인
+                      {(plans[plan] as any).discount} 할인
                     </div>
                   )}
                 </div>
