@@ -35,7 +35,8 @@ export default function TodayHabitsList({
         .from('habit_logs')
         .upsert({
           habit_id: habit.id,
-          date: today,
+          user_id: userId,
+          checked_at: today,
           checked: true,
         });
 
@@ -109,7 +110,7 @@ export default function TodayHabitsList({
               <h3 className={`font-medium ${
                 isChecked ? 'text-green-800 line-through' : 'text-gray-900'
               }`}>
-                {habit.name}
+                {habit.title}
               </h3>
               {isChecked && (
                 <p className="text-sm text-green-600 mt-1">
