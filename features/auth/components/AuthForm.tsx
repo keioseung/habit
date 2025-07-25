@@ -21,18 +21,21 @@ export default function AuthForm({ type }: AuthFormProps) {
 
     try {
       if (type === 'login') {
+        console.log('로그인 시도:', username);
         await signIn(username, password);
         setMessage('로그인 성공!');
         // 로그인 성공 시 홈으로 이동
         window.location.href = '/';
       } else {
+        console.log('회원가입 시도:', username);
         await signUp(username, password);
         setMessage('회원가입이 완료되었습니다!');
         // 회원가입 성공 시 홈으로 이동
         window.location.href = '/';
       }
     } catch (error: any) {
-      setError(error.message);
+      console.error('인증 에러:', error);
+      setError(error.message || '알 수 없는 오류가 발생했습니다.');
     } finally {
       setLoading(false);
     }
