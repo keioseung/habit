@@ -3,8 +3,9 @@ import { supabase } from '../../../lib/supabaseClient';
 
 export interface Habit {
   id: string;
-  name: string;
-  repeat_days: string;
+  title: string;
+  description?: string;
+  color: string;
   user_id: string;
   created_at: string;
 }
@@ -12,8 +13,9 @@ export interface Habit {
 export interface HabitLog {
   id: string;
   habit_id: string;
-  date: string;
+  user_id: string;
   checked: boolean;
+  checked_at: string;
   created_at: string;
 }
 
@@ -27,11 +29,9 @@ export function useTodayHabits(userId: string | undefined) {
 
     const fetchTodayHabits = async () => {
       try {
-        // 오늘 요일 구하기
-        const today = new Date().toLocaleDateString('en-US', { weekday: 'short' }); // 'Mon', 'Tue' 등
         const todayDate = new Date().toISOString().slice(0, 10); // 'YYYY-MM-DD'
 
-        // 사용자의 습관들 가져오기
+        // 사용자의 모든 습관들 가져오기
         const { data: habitsData, error: habitsError } = await supabase
           .from('habits')
           .select('*')
@@ -39,21 +39,16 @@ export function useTodayHabits(userId: string | undefined) {
 
         if (habitsError) throw habitsError;
 
-        // 오늘 요일에 해당하는 습관만 필터링
-        const todayHabits = habitsData?.filter(habit => 
-          habit.repeat_days?.includes(today)
-        ) || [];
-
-        setHabits(todayHabits);
+        setHabits(habitsData || []);
 
         // 오늘의 습관 로그 가져오기
-        if (todayHabits.length > 0) {
-          const habitIds = todayHabits.map(habit => habit.id);
+        if (habitsData && habitsData.length > 0) {
+          const habitIds = habitsData.map(habit => habit.id);
           const { data: logsData, error: logsError } = await supabase
             .from('habit_logs')
             .select('*')
             .in('habit_id', habitIds)
-            .eq('date', todayDate);
+            .eq('checked_at', todayDate);
 
           if (logsError) throw logsError;
           setHabitLogs(logsData || []);

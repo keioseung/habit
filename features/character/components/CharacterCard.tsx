@@ -42,7 +42,7 @@ export default function CharacterCard({ character, loading }: CharacterCardProps
           레벨 {character.level}
         </h3>
         <p className="text-sm text-gray-600">
-          {character.email}
+          경험치: {character.exp}
         </p>
       </div>
 

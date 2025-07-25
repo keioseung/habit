@@ -3,9 +3,10 @@ import { supabase } from '../../../lib/supabaseClient';
 
 export interface Character {
   id: string;
+  user_id: string;
   level: number;
   exp: number;
-  email: string;
+  created_at: string;
 }
 
 export function useCharacter(userId: string | undefined) {
@@ -18,9 +19,9 @@ export function useCharacter(userId: string | undefined) {
     const fetchCharacter = async () => {
       try {
         const { data, error } = await supabase
-          .from('users')
-          .select('id, level, exp, email')
-          .eq('id', userId)
+          .from('characters')
+          .select('*')
+          .eq('user_id', userId)
           .single();
 
         if (error) throw error;
@@ -49,9 +50,9 @@ export function useCharacter(userId: string | undefined) {
       }
 
       const { error } = await supabase
-        .from('users')
+        .from('characters')
         .update({ level: newLevel, exp: newExp })
-        .eq('id', userId);
+        .eq('user_id', userId);
 
       if (error) throw error;
 
