@@ -14,9 +14,9 @@ import PremiumModal from '../features/payment/components/PremiumModal';
 export default function Dashboard() {
   const { user, loading } = useAuth();
   const router = useRouter();
-  const { habits, loading: habitsLoading, addHabit } = useHabits();
-  const { character, loading: characterLoading, addExperience } = useCharacter();
-  const { todayHabits, loading: todayHabitsLoading, checkHabit, uncheckHabit } = useTodayHabits();
+  const { habits, loading: habitsLoading, addHabit } = useHabits(user?.id);
+  const { character, loading: characterLoading, addExperience } = useCharacter(user?.id);
+  const { todayHabits, loading: todayHabitsLoading, checkHabit, uncheckHabit } = useTodayHabits(user?.id);
   const { 
     patternAnalysis, 
     getMotivationalMessage,
