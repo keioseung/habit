@@ -30,7 +30,18 @@ export default function HomePage() {
   }
 
   if (!user) {
-    return null; // 로그인 페이지로 리다이렉트 중
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100">
+        <div className="bg-white/80 backdrop-blur-lg rounded-2xl shadow-2xl p-10 border border-white/40 flex flex-col items-center">
+          <h1 className="text-4xl font-extrabold text-gray-900 mb-4 tracking-tight">습관 형성 앱</h1>
+          <p className="text-lg text-gray-600 mb-8">로그인하고 습관을 만들어보세요</p>
+          <div className="flex space-x-4">
+            <a href="/auth/login" className="px-6 py-3 rounded-xl bg-indigo-500 text-white font-bold shadow-lg hover:scale-105 hover:bg-indigo-600 transition-all duration-200">로그인</a>
+            <a href="/auth/signup" className="px-6 py-3 rounded-xl bg-pink-500 text-white font-bold shadow-lg hover:scale-105 hover:bg-pink-600 transition-all duration-200">회원가입</a>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   const completedHabits = habitLogs.filter(log => log.checked).length;

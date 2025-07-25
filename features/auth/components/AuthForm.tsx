@@ -110,6 +110,17 @@ export default function AuthForm({ type }: AuthFormProps) {
         >
           로그아웃
         </button>
+        {type === 'login' ? (
+          <div className="mt-2">
+            <span className="text-sm text-gray-500">계정이 없으신가요? </span>
+            <a href="/auth/signup" className="text-indigo-600 hover:underline font-medium transition-colors">회원가입</a>
+          </div>
+        ) : (
+          <div className="mt-2">
+            <span className="text-sm text-gray-500">이미 계정이 있으신가요? </span>
+            <a href="/auth/login" className="text-indigo-600 hover:underline font-medium transition-colors">로그인</a>
+          </div>
+        )}
       </div>
     </div>
   );
