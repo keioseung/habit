@@ -31,9 +31,9 @@ export default function HabitsPage() {
     return null;
   }
 
-  const handleAddHabit = async (name: string, repeatDays: string[]) => {
+  const handleAddHabit = async (title: string, description: string, color: string) => {
     setFormLoading(true);
-    const result = await addHabit(name, repeatDays);
+    const result = await addHabit(title, description, color);
     setFormLoading(false);
     
     if (result.success) {
@@ -42,11 +42,11 @@ export default function HabitsPage() {
     return result;
   };
 
-  const handleUpdateHabit = async (name: string, repeatDays: string[]) => {
+  const handleUpdateHabit = async (title: string, description: string, color: string) => {
     if (!editingHabit) return { success: false };
     
     setFormLoading(true);
-    const result = await updateHabit(editingHabit.id, name, repeatDays);
+    const result = await updateHabit(editingHabit.id, title, description, color);
     setFormLoading(false);
     
     if (result.success) {

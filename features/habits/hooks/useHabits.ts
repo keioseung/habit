@@ -28,13 +28,14 @@ export function useHabits(userId: string | undefined) {
     }
   };
 
-  const addHabit = async (name: string, repeatDays: string[]) => {
+  const addHabit = async (title: string, description: string, color: string) => {
     try {
       const { data, error } = await supabase
         .from('habits')
         .insert({
-          name,
-          repeat_days: repeatDays.join(','),
+          title,
+          description,
+          color,
           user_id: userId,
         })
         .select()
@@ -49,13 +50,14 @@ export function useHabits(userId: string | undefined) {
     }
   };
 
-  const updateHabit = async (id: string, name: string, repeatDays: string[]) => {
+  const updateHabit = async (id: string, title: string, description: string, color: string) => {
     try {
       const { data, error } = await supabase
         .from('habits')
         .update({
-          name,
-          repeat_days: repeatDays.join(','),
+          title,
+          description,
+          color,
         })
         .eq('id', id)
         .select()
