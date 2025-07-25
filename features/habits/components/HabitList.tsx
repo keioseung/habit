@@ -8,16 +8,6 @@ interface HabitListProps {
   loading?: boolean;
 }
 
-const DAYS_OF_WEEK = {
-  'Mon': '월',
-  'Tue': '화',
-  'Wed': '수',
-  'Thu': '목',
-  'Fri': '금',
-  'Sat': '토',
-  'Sun': '일',
-};
-
 export default function HabitList({ habits, onEdit, onDelete, loading = false }: HabitListProps) {
   const [deletingId, setDeletingId] = useState<string | null>(null);
 
@@ -32,9 +22,16 @@ export default function HabitList({ habits, onEdit, onDelete, loading = false }:
     }
   };
 
-  const formatRepeatDays = (repeatDays: string) => {
-    if (!repeatDays) return '설정 없음';
-    return repeatDays.split(',').map(day => DAYS_OF_WEEK[day as keyof typeof DAYS_OF_WEEK]).join(', ');
+  const getColorClass = (color: string) => {
+    const colorMap: { [key: string]: string } = {
+      'indigo': 'bg-indigo-100 text-indigo-800',
+      'blue': 'bg-blue-100 text-blue-800',
+      'green': 'bg-green-100 text-green-800',
+      'yellow': 'bg-yellow-100 text-yellow-800',
+      'pink': 'bg-pink-100 text-pink-800',
+      'purple': 'bg-purple-100 text-purple-800',
+    };
+    return colorMap[color] || 'bg-gray-100 text-gray-800';
   };
 
   if (loading) {
@@ -70,12 +67,19 @@ export default function HabitList({ habits, onEdit, onDelete, loading = false }:
         <div key={habit.id} className="bg-white rounded-lg shadow-md p-6">
           <div className="flex items-start justify-between">
             <div className="flex-1">
-              <h3 className="text-lg font-medium text-gray-900 mb-2">
-                {habit.name}
-              </h3>
-              <p className="text-sm text-gray-600 mb-3">
-                반복: {formatRepeatDays(habit.repeat_days)}
-              </p>
+              <div className="flex items-center gap-2 mb-2">
+                <h3 className="text-lg font-medium text-gray-900">
+                  {habit.title}
+                </h3>
+                <span className={`px-2 py-1 text-xs font-medium rounded-full ${getColorClass(habit.color)}`}>
+                  {habit.color}
+                </span>
+              </div>
+              {habit.description && (
+                <p className="text-sm text-gray-600 mb-3">
+                  {habit.description}
+                </p>
+              )}
               <p className="text-xs text-gray-500">
                 생성일: {new Date(habit.created_at).toLocaleDateString('ko-KR')}
               </p>
