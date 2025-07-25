@@ -119,7 +119,7 @@ export default function WelcomePage() {
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-4">간단한 습관 추적</h3>
               <p className="text-gray-600">복잡한 설정 없이 클릭 한 번으로 습관을 체크하고 진행 상황을 추적하세요.</p>
-            </div>
+                </div>
 
             <div className="text-center p-8 bg-white/60 backdrop-blur-lg rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105">
               <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
@@ -129,20 +129,20 @@ export default function WelcomePage() {
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-4">상세한 통계</h3>
               <p className="text-gray-600">습관 완료율, 연속 달성일, 경험치 등 다양한 통계로 동기부여를 받으세요.</p>
-            </div>
-
+              </div>
+              
             <div className="text-center p-8 bg-white/60 backdrop-blur-lg rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105">
               <div className="w-16 h-16 bg-gradient-to-br from-pink-500 to-red-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
                 <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-6 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-              </div>
+                </div>
               <h3 className="text-xl font-bold text-gray-900 mb-4">캐릭터 성장</h3>
               <p className="text-gray-600">습관을 완료할 때마다 경험치를 얻고 레벨업하며 성장하는 재미를 느껴보세요.</p>
             </div>
           </div>
         </div>
-      </div>
+          </div>
 
       {/* CTA 섹션 */}
       <div className="relative py-20 px-4 bg-gradient-to-r from-indigo-600 to-purple-600">
@@ -187,8 +187,8 @@ export default function WelcomePage() {
                 <li><a href="#" className="hover:text-white transition-colors">가격</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">업데이트</a></li>
               </ul>
-            </div>
-            
+        </div>
+
             <div>
               <h3 className="font-semibold mb-4">지원</h3>
               <ul className="space-y-2 text-gray-400">
@@ -196,8 +196,8 @@ export default function WelcomePage() {
                 <li><a href="#" className="hover:text-white transition-colors">문의하기</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">FAQ</a></li>
               </ul>
-            </div>
-            
+          </div>
+          
             <div>
               <h3 className="font-semibold mb-4">회사</h3>
               <ul className="space-y-2 text-gray-400">
