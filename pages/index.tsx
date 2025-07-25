@@ -53,7 +53,7 @@ export default function HomePage() {
         {/* 헤더 */}
         <div className="bg-white rounded-lg shadow-md p-6 mb-6">
           <h1 className="text-2xl font-bold text-gray-900 mb-2">
-            안녕하세요, {user.email}님!
+            안녕하세요, {user.username}님!
           </h1>
           <p className="text-gray-600">
             오늘도 습관을 만들어보세요.

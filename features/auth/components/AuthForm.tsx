@@ -1,16 +1,17 @@
 import { useState } from 'react';
-import { supabase } from '../../../lib/supabaseClient';
+import { useAuth } from '../hooks/useAuth';
 
 interface AuthFormProps {
   type: 'login' | 'signup';
 }
 
 export default function AuthForm({ type }: AuthFormProps) {
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
+  const { signUp, signIn, signOut } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -20,21 +21,15 @@ export default function AuthForm({ type }: AuthFormProps) {
 
     try {
       if (type === 'login') {
-        const { error } = await supabase.auth.signInWithPassword({
-          email,
-          password,
-        });
-        if (error) throw error;
+        await signIn(username, password);
+        setMessage('로그인 성공!');
+        // 로그인 성공 시 홈으로 이동
+        window.location.href = '/';
       } else {
-        const { error } = await supabase.auth.signUp({
-          email,
-          password,
-        });
-        if (error) throw error;
-        // 회원가입 성공 시 바로 로그인 시도
-        const { error: loginError } = await supabase.auth.signInWithPassword({ email, password });
-        if (loginError) throw loginError;
+        await signUp(username, password);
         setMessage('회원가입이 완료되었습니다!');
+        // 회원가입 성공 시 홈으로 이동
+        window.location.href = '/';
       }
     } catch (error: any) {
       setError(error.message);
@@ -44,7 +39,7 @@ export default function AuthForm({ type }: AuthFormProps) {
   };
 
   const handleLogout = async () => {
-    await supabase.auth.signOut();
+    await signOut();
   };
 
   return (
@@ -61,8 +56,8 @@ export default function AuthForm({ type }: AuthFormProps) {
           <input
             id="username"
             type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             required
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
             placeholder="아이디를 입력하세요"
