@@ -62,7 +62,7 @@ export function useNotifications() {
               title: '나중에',
             },
           ],
-        });
+        } as any);
       });
     }
   };
